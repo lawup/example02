@@ -35,7 +35,7 @@ func (t *SimpleChaincode) Init(stub *shim.ChaincodeStub, function string, args [
 	fmt.Printf("Init called, initializing chaincode")
 	
 	var A, B string    // Entities
-	var Aval, Bval int // Asset holdings
+	var Aval, Bval string // Asset holdings
 	var err error
 
 	if len(args) != 4 {
@@ -74,8 +74,8 @@ func (t *SimpleChaincode) invoke(stub *shim.ChaincodeStub, args []string) ([]byt
 	fmt.Printf("Running invoke")
 	
 	var A, B string    // Entities
-	var Aval, Bval int // Asset holdings
-	var X int          // Transaction value
+	var Aval, Bval string // Asset holdings
+	var X string          // Transaction value
 	var err error
 
 	if len(args) != 3 {
