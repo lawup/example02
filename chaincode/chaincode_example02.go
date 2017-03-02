@@ -1,6 +1,6 @@
 /*
 Hyperledger Hackathon 2017 @ShangHai
-Team ：HyperTerminator
+Team ：Hyper Terminator
 Works: Consensus of Justice A.I. 
 */
 
@@ -102,12 +102,12 @@ func (t *SimpleChaincode) write(stub shim.ChaincodeStubInterface, args []string)
 	if err2 != nil {
 		return nil, err2
 	}
-	return nil, nil
 	
 	err3 = stub.PutState(key3, []byte(value3)) //write the variable into the chaincode state
 	if err3 != nil {
 		return nil, err3
 	}
+	
 	return nil, nil
 	
 }
