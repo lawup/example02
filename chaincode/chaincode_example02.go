@@ -1,7 +1,7 @@
 /*
-Hyperledger Hackathon 2017 ShangHai
-Team：HyperTerminator
-
+Hyperledger Hackathon 2017 @ShangHai
+Team ：HyperTerminator
+Works: Consensus of Justice A.I. 
 */
 
 package main
@@ -85,10 +85,14 @@ func (t *SimpleChaincode) write(stub shim.ChaincodeStubInterface, args []string)
 	value1 = args[2]
 	key2 = args[1] //rename for funsies
 	value2 = args[3]
-	err = stub.PutState(key1, []byte(value1)) //write the variable into the chaincode state
-	err = stub.PutState(key2, []byte(value2)) //write the variable into the chaincode state
-	if err != nil {
-		return nil, err
+	
+	err1 = stub.PutState(key1, []byte(value1)) //write the variable into the chaincode state
+	if err1 != nil {
+		return nil, err1
+	}
+	err2 = stub.PutState(key2, []byte(value2)) //write the variable into the chaincode state
+	if err2 != nil {
+		return nil, err2
 	}
 	return nil, nil
 }
@@ -103,11 +107,9 @@ func (t *SimpleChaincode) read(stub shim.ChaincodeStubInterface, args []string) 
 	}
 
 	key1 = args[0]
-	key2 = args[1]
 	valAsbytes, err := stub.GetState(key1)
-	valAsbytes, err := stub.GetState(key2)
 	if err != nil {
-		jsonResp = "{\"Error\":\"Failed to get state for " + key1  +" "+ key2 + "\"}"
+		jsonResp = "{\"Error\":\"Failed to get state for " + key1  +" \"}"
 		return nil, errors.New(jsonResp)
 	}
 
