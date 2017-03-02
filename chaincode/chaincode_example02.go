@@ -142,10 +142,27 @@ func (t *SimpleChaincode) read(stub shim.ChaincodeStubInterface, args []string) 
 		return nil, errors.New(jsonResp3)
 	}
 	
-	//valAsbytes1 = append([]byte(valAsbytes1),valAsbytes2,valAsbytes3...)
-	valAsbytes1 = append([]byte(valAsbytes1),valAsbytes2...)
-	valAsbytes1 = append([]byte(valAsbytes1),valAsbytes3...)
+	//valAsbytes1 = append([]byte(valAsbytes1),valAsbytes2...)
+	//valAsbytes1 = append([]byte(valAsbytes1),valAsbytes3...)
 	
-	return valAsbytes1, nil
+	var valAsbytes string
+	
+	if valAsbytes1 == valAsbytes2 {
+	valAsbytes = valAsbytes1
+	}
+	
+	if valAsbytes2 == valAsbytes3 {
+	valAsbytes = valAsbytes2
+	}
+	
+	if valAsbytes3 == valAsbytes1 {
+	valAsbytes = valAsbytes3
+	}
+	
+	if valAsbytes == NULL {
+	valAsbytes = valAsbytes1
+	}
+	
+	return valAsbytes, nil
 }
 
