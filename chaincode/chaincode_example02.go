@@ -99,20 +99,27 @@ func (t *SimpleChaincode) write(stub shim.ChaincodeStubInterface, args []string)
 
 // read - query function to read key/value pair
 func (t *SimpleChaincode) read(stub shim.ChaincodeStubInterface, args []string) ([]byte, error) {
-	var key1,jsonResp string
-	var err error
+	var key1,key2,jsonResp1,jsonResp2 string
+	var err1,err2 error
 
-	if len(args) != 1 {
+	if len(args) != 2 {
 		return nil, errors.New("Incorrect number of arguments. Expecting name of the key to query")
 	}
 
 	key1 = args[0]
-	valAsbytes, err := stub.GetState(key1)
-	if err != nil {
-		jsonResp = "{\"Error\":\"Failed to get state for " + key1  +" \"}"
-		return nil, errors.New(jsonResp)
+	valAsbytes1, err1 := stub.GetState(key1)
+	if err1 != nil {
+		jsonResp1 = "{\"Error\":\"Failed to get state for " + key1  +" \"}"
+		return nil, errors.New(jsonResp1)
 	}
 
-	return valAsbytes, nil
+	key2 = args[0]
+	valAsbytes2, err2 := stub.GetState(key2)
+	if err2 != nil {
+		jsonResp2 = "{\"Error\":\"Failed to get state for " + key2  +" \"}"
+		return nil, errors.New(jsonResp2)
+	}
+	
+	return valAsbytes1,valAsbytes2, nil
 }
 
