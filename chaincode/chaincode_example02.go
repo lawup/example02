@@ -105,17 +105,13 @@ func (t *SimpleChaincode) write(stub shim.ChaincodeStubInterface, args []string)
 	
 	if value1 == value2 {
 	value0 = value1
-	}
-	if value2 == value3 {
+	}else if value2 == value3 {
 	value0 = value2
-	}
-	if value3 == value1 {
+	}else if value3 == value1 {
 	value0 = value1
-	}
-	
-	if value0 == "0" {
+	}else{
 	value0 = value1  //如果三者均不同 则以1号为准
-	}	
+	}
 	
 	
 	err1 = stub.PutState(key1, []byte(value1)) //write the variable into the chaincode state
