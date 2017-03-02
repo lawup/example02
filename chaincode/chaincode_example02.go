@@ -100,11 +100,22 @@ func (t *SimpleChaincode) write(stub shim.ChaincodeStubInterface, args []string)
 	
 	key0 = args[6]
 	
-	//if value1 == value2 {
-	//value0 = value1
-	//}
 	
+	//共识：少数服从多数
+	
+	if value1 == value2 {
 	value0 = value1
+	}
+	if value2 == value3 {
+	value0 = value2
+	}
+	if value3 == value1 {
+	value0 = value1
+	}
+	
+	if value0 == "0" {
+	value0 = value1  //如果三者均不同 则以1号为准
+	}	
 	
 	
 	err1 = stub.PutState(key1, []byte(value1)) //write the variable into the chaincode state
