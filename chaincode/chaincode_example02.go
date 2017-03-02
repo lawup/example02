@@ -82,8 +82,8 @@ func (t *SimpleChaincode) write(stub shim.ChaincodeStubInterface, args []string)
 	}
 
 	key1 = args[0] //rename for funsies
-	value1 = args[2]
-	key2 = args[1] //rename for funsies
+	value1 = args[1]
+	key2 = args[2] //rename for funsies
 	value2 = args[3]
 	
 	err1 = stub.PutState(key1, []byte(value1)) //write the variable into the chaincode state
@@ -102,7 +102,7 @@ func (t *SimpleChaincode) read(stub shim.ChaincodeStubInterface, args []string) 
 	var key1,jsonResp string
 	var err error
 
-	if len(args) != 2 {
+	if len(args) != 1 {
 		return nil, errors.New("Incorrect number of arguments. Expecting name of the key to query")
 	}
 
