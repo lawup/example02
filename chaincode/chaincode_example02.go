@@ -98,11 +98,12 @@ func (t *SimpleChaincode) write(stub shim.ChaincodeStubInterface, args []string)
 	key3 = args[4] //rename for funsies
 	value3 = args[5]
 	
+	key0 = args[6]
+	
 	//if value1 == value2 {
 	//value0 = value1
 	//}
 	
-	key0 = 'hello_world0'
 	value0 = value1
 	
 	
