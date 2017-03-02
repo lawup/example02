@@ -114,7 +114,7 @@ func (t *SimpleChaincode) write(stub shim.ChaincodeStubInterface, args []string)
 
 // read - query function to read key/value pair
 func (t *SimpleChaincode) read(stub shim.ChaincodeStubInterface, args []string) ([]byte, error) {
-	var key1,key2,key3,jsonResp1,jsonResp2,jsonResp3 string
+	var key1,key2,key3,value1,value2,value3,jsonResp1,jsonResp2,jsonResp3 string
 	var err1,err2,err3 error
 
 	if len(args) != 3 {
@@ -125,13 +125,16 @@ func (t *SimpleChaincode) read(stub shim.ChaincodeStubInterface, args []string) 
 	valAsbytes1, err1 := stub.GetState(key1)
 	if err1 != nil {
 		jsonResp1 = "{\"Error\":\"Failed to get state for " + key1  +" \"}"
+		value1 = nil
 		return nil, errors.New(jsonResp1)
 	}
+	
 
 	key2 = args[1]
 	valAsbytes2, err2 := stub.GetState(key2)
 	if err2 != nil {
 		jsonResp2 = "{\"Error\":\"Failed to get state for " + key2  +" \"}"
+		value2 = nil
 		return nil, errors.New(jsonResp2)
 	}
 
@@ -139,6 +142,7 @@ func (t *SimpleChaincode) read(stub shim.ChaincodeStubInterface, args []string) 
 	valAsbytes3, err3 := stub.GetState(key3)
 	if err3 != nil {
 		jsonResp3 = "{\"Error\":\"Failed to get state for " + key3  +" \"}"
+		value3 = nil
 		return nil, errors.New(jsonResp3)
 	}
 	
@@ -147,7 +151,7 @@ func (t *SimpleChaincode) read(stub shim.ChaincodeStubInterface, args []string) 
 	
 	//var valAsbytes string
 	
-	if []byte(valAsbytes1) == []byte(valAsbytes2) {
+	if value1 == value2 {
 	valAsbytes3 = valAsbytes1
 	}
 	
