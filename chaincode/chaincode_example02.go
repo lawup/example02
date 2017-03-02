@@ -26,8 +26,8 @@ func main() {
 
 // Init resets all the things
 func (t *SimpleChaincode) Init(stub shim.ChaincodeStubInterface, function string, args []string) ([]byte, error) {
-	if len(args) != 3 {
-		return nil, errors.New("Incorrect number of arguments. Expecting 3")
+	if len(args) != 4 {
+		return nil, errors.New("Incorrect number of arguments. Expecting 4")
 	}
 
 	err1 := stub.PutState("hello_world1", []byte(args[0]))
@@ -43,6 +43,11 @@ func (t *SimpleChaincode) Init(stub shim.ChaincodeStubInterface, function string
 	err3 := stub.PutState("hello_world3", []byte(args[2]))
 	if err3 != nil {
 		return nil, err3
+	}
+	
+	err0 := stub.PutState("hello_world0", []byte(args[3]))
+	if err0 != nil {
+		return nil, err0
 	}
 	
 	return nil, nil
@@ -78,8 +83,8 @@ func (t *SimpleChaincode) Query(stub shim.ChaincodeStubInterface, function strin
 
 // write - invoke function to write key/value pair
 func (t *SimpleChaincode) write(stub shim.ChaincodeStubInterface, args []string) ([]byte, error) {
-	var key1, value1, key2, value2, key3, value3 string
-	var err1, err2, err3 error
+	var key1, value1, key2, value2, key3, value3, key3, value0 string
+	var err1, err2, err3, err0 error
 	fmt.Println("running write()")
 
 	if len(args) != 6 {
@@ -92,6 +97,16 @@ func (t *SimpleChaincode) write(stub shim.ChaincodeStubInterface, args []string)
 	value2 = args[3]
 	key3 = args[4] //rename for funsies
 	value3 = args[5]
+	
+	//if value1 == value2 {
+	//value0 = value1
+	//}
+	
+	key0 = 'hello_world0'
+	value0 = value1
+	
+	
+	
 	
 	err1 = stub.PutState(key1, []byte(value1)) //write the variable into the chaincode state
 	if err1 != nil {
@@ -107,6 +122,11 @@ func (t *SimpleChaincode) write(stub shim.ChaincodeStubInterface, args []string)
 	if err3 != nil {
 		return nil, err3
 	}
+
+	err0 = stub.PutState(key0, []byte(value0)) //write the variable into the chaincode state
+	if err0 != nil {
+		return nil, err0
+	}
 	
 	return nil, nil
 	
@@ -114,48 +134,22 @@ func (t *SimpleChaincode) write(stub shim.ChaincodeStubInterface, args []string)
 
 // read - query function to read key/value pair
 func (t *SimpleChaincode) read(stub shim.ChaincodeStubInterface, args []string) ([]byte, error) {
-	var key1,key2,key3,value1,value2,value3,jsonResp1,jsonResp2,jsonResp3 string
-	var err1,err2,err3 error
+	var key0,jsonResp0 string
+	var err0 error
 
-	if len(args) != 3 {
+	if len(args) != 1 {
 		return nil, errors.New("Incorrect number of arguments. Expecting name of the key to query")
 	}
 
-	key1 = args[0]
-	valAsbytes1, err1 := stub.GetState(key1)
-	if err1 != nil {
-		jsonResp1 = "{\"Error\":\"Failed to get state for " + key1  +" \"}"
-		value1 = nil
-		return nil, errors.New(jsonResp1)
+	key0 = args[0]
+	valAsbytes0, err0 := stub.GetState(key0)
+	if err0 != nil {
+		jsonResp0 = "{\"Error\":\"Failed to get state for " + key0  +" \"}"
+		return nil, errors.New(jsonResp0)
 	}
-	
-
-	key2 = args[1]
-	valAsbytes2, err2 := stub.GetState(key2)
-	if err2 != nil {
-		jsonResp2 = "{\"Error\":\"Failed to get state for " + key2  +" \"}"
-		value2 = nil
-		return nil, errors.New(jsonResp2)
-	}
-
-	key3 = args[2]
-	valAsbytes3, err3 := stub.GetState(key3)
-	if err3 != nil {
-		jsonResp3 = "{\"Error\":\"Failed to get state for " + key3  +" \"}"
-		value3 = nil
-		return nil, errors.New(jsonResp3)
-	}
-	
-	//valAsbytes1 = append([]byte(valAsbytes1),valAsbytes2...)
-	//valAsbytes1 = append([]byte(valAsbytes1),valAsbytes3...)
 	
 	//var valAsbytes string
 	
-	if value1 == value2 {
-	valAsbytes3 = valAsbytes1
-	}
-	
-	
-	return valAsbytes3, nil
+	return valAsbytes0, nil
 }
 
