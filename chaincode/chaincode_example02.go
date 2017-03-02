@@ -30,14 +30,14 @@ func (t *SimpleChaincode) Init(stub shim.ChaincodeStubInterface, function string
 		return nil, errors.New("Incorrect number of arguments. Expecting 2")
 	}
 
-	err := stub.PutState("hello_world1", []byte(args[0]))
-	if err != nil {
-		return nil, err
+	err1 := stub.PutState("hello_world1", []byte(args[0]))
+	if err1 != nil {
+		return nil, err1
 	}
 
-	err := stub.PutState("hello_world2", []byte(args[1]))
-	if err != nil {
-		return nil, err
+	err2 := stub.PutState("hello_world2", []byte(args[1]))
+	if err2 != nil {
+		return nil, err2
 	}
 
 	return nil, nil
