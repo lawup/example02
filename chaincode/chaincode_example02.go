@@ -154,7 +154,7 @@ func (t *SimpleChaincode) read(stub shim.ChaincodeStubInterface, args []string) 
 		return nil, errors.New(jsonResp0)
 	}
 	
-	//var valAsbytes string有大小限制
+	//var valAsbytes string有
 	
 	return valAsbytes0, nil
 }
